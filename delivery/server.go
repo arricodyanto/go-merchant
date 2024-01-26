@@ -3,13 +3,20 @@ package delivery
 import (
 	"fmt"
 	"go-merchant/config"
+	"go-merchant/delivery/controller"
+	"go-merchant/repository"
+	"go-merchant/shared/service"
+	"go-merchant/usecase"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Server struct {
-	engine *gin.Engine
-	host   string
+	customerUC usecase.CustomerUsecase
+	authUC     usecase.AuthUsecase
+	jwtService service.JwtService
+	engine     *gin.Engine
+	host       string
 }
 
 func (s *Server) initRoute() {
@@ -18,7 +25,7 @@ func (s *Server) initRoute() {
 	fmt.Print(rg)
 
 	// routes from controller
-
+	controller.NewAuthController(s.authUC, rg).Route()
 }
 
 func (s *Server) Run() {
@@ -34,12 +41,23 @@ func NewServer() *Server {
 	// panggil config yang telah dibuat
 	config, _ := config.NewConfig()
 
+	// define repository
+	customerRepo := repository.NewCustomerRepository()
+
+	// define usecase
+	customerUC := usecase.NewCustomerUsecase(customerRepo)
+	jwtService := service.NewJwtService(config.TokenConfig)
+	authUC := usecase.NewAuthUsecase(customerUC, jwtService)
+
 	// config gin to default config
 	engine := gin.Default()
 	host := fmt.Sprintf(":%s", config.ApiPort)
 
 	return &Server{
-		engine: engine,
-		host:   host,
+		customerUC: customerUC,
+		jwtService: jwtService,
+		authUC:     authUC,
+		engine:     engine,
+		host:       host,
 	}
 }

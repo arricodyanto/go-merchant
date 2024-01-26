@@ -3,7 +3,10 @@ package config
 import (
 	"fmt"
 	"os"
+	"strconv"
+	"time"
 
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/joho/godotenv"
 )
 
@@ -11,8 +14,16 @@ type ApiConfig struct {
 	ApiPort string
 }
 
+type TokenConfig struct {
+	IssuerName       string `json:"IssuerName"`
+	JwtSignatureKy   []byte `json:"JwtSignatureKy"`
+	JwtSigningMethod *jwt.SigningMethodHMAC
+	JwtExpiresTime   time.Duration
+}
+
 type Config struct {
 	ApiConfig
+	TokenConfig
 }
 
 func (c *Config) ConfigConfiguration() error {
@@ -24,6 +35,15 @@ func (c *Config) ConfigConfiguration() error {
 
 	// simpan api port env ke variable
 	c.ApiConfig = ApiConfig{ApiPort: os.Getenv("API_PORT")}
+
+	// buat config untuk jwt token yang akan digenerate
+	tokenExpire, _ := strconv.Atoi(os.Getenv("TOKEN_EXPIRE"))
+	c.TokenConfig = TokenConfig{
+		IssuerName:       os.Getenv("TOKEN_ISSUE"),
+		JwtSignatureKy:   []byte(os.Getenv("TOKEN_SECRET")),
+		JwtSigningMethod: jwt.SigningMethodHS256,
+		JwtExpiresTime:   time.Duration(tokenExpire) * time.Minute,
+	}
 
 	return nil
 }
