@@ -37,8 +37,24 @@ func (*customerRepository) GetByUsernamePassword(username, password string) (ent
 	json.Unmarshal(file, &customers)
 
 	// cek data yang memiliki credential username password yang cocok
-	for _, v := range customers {
+	for i, v := range customers {
 		if v.Username == username && v.Password == password {
+			// ubah field is_logged_in menjadi true
+			customers[i].IsLoggedIn = true
+			customer = customers[i]
+
+			// ubah ke format json dengan marshal
+			updatedData, err := json.MarshalIndent(customers, "", "  ")
+			if err != nil {
+				return entity.Customer{}, fmt.Errorf("failed to marshal updatedData: %v", err.Error())
+			}
+
+			// sumpan perubahan ke file json
+			err = os.WriteFile(filepath.Join(path, fileName), updatedData, 0644)
+			if err != nil {
+				return entity.Customer{}, fmt.Errorf("failed to save updatedData to json: %v", err.Error())
+			}
+
 			return customer, nil
 		}
 	}

@@ -22,7 +22,6 @@ type Server struct {
 func (s *Server) initRoute() {
 	// ambilapi group dari file app config
 	rg := s.engine.Group(config.ApiGroup)
-	fmt.Print(rg)
 
 	// routes from controller
 	controller.NewAuthController(s.authUC, rg).Route()

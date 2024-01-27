@@ -1,6 +1,22 @@
 [
-	{
-		"username": "arricohandyanto",
-		"password": "password"
-	}
+  {
+    "id": "7d124b50-b5de-4520-bba0-127129415bad",
+    "name": "Arrico Handyanto",
+    "username": "arricohandyanto",
+    "password": "password",
+    "contact": "088888889",
+    "is_logged_in": true,
+    "created_at": "2024-01-26T23:09:23Z",
+    "updated_at": "2024-01-26T23:09:23Z"
+  },
+  {
+    "id": "1c1a6ba1-1225-4385-a27a-a9ab577d61a1",
+    "name": "Yoelsefet Ignatius",
+    "username": "yoelsefet12",
+    "password": "password",
+    "contact": "0899999999",
+    "is_logged_in": true,
+    "created_at": "2024-01-26T23:09:23Z",
+    "updated_at": "2024-01-26T23:09:23Z"
+  }
 ]
