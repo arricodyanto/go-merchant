@@ -1,40 +1,40 @@
 [
-	{
-		"id": "5e3a69d3-5dfd-4403-b8e1-0765b8984c3d",
-		"customer": {
-			"id": "7d124b50-b5de-4520-bba0-127129415bad",
-			"name": "Arrico Handyanto",
-			"username": "arricohandyanto",
-			"contact": "088888889",
-			"created_at": "2024-01-26T23:09:23Z",
-			"updated_at": "2024-01-26T23:09:23Z"
-		},
-		"amount": 2000,
-		"redirect_url": "https://app.midtrans.com/snap/v3/redirection/87b8f86c-1bb2-4439-99c1-8d3952d50b70",
-		"currency": "",
-		"payment_type": "",
-		"transaction_status": "Waiting Payment",
-		"transaction_time": "2024-01-27T20:31:00.258907+07:00",
-		"settlement_time": "0001-01-01T00:00:00Z",
-		"expiry_time": "0001-01-01T00:00:00Z"
-	},
-	{
-		"id": "90f174d6-60a5-414f-8e47-59a474412160",
-		"customer": {
-			"id": "1c1a6ba1-1225-4385-a27a-a9ab577d61a1",
-			"name": "Yoelsefet Ignatius",
-			"username": "yoelsefet12",
-			"contact": "0899999999",
-			"created_at": "2024-01-26T23:09:23Z",
-			"updated_at": "2024-01-26T23:09:23Z"
-		},
-		"amount": 1,
-		"redirect_url": "https://app.midtrans.com/snap/v3/redirection/16b9211b-a056-4c8b-8149-2d9ef9ec8a28",
-		"currency": "",
-		"payment_type": "",
-		"transaction_status": "Waiting Payment",
-		"transaction_time": "2024-01-27T20:31:50.347094+07:00",
-		"settlement_time": "0001-01-01T00:00:00Z",
-		"expiry_time": "0001-01-01T00:00:00Z"
-	}
+  {
+    "id": "5e3a69d3-5dfd-4403-b8e1-0765b8984c3d",
+    "customer": {
+      "id": "7d124b50-b5de-4520-bba0-127129415bad",
+      "name": "Arrico Handyanto",
+      "username": "arricohandyanto",
+      "contact": "088888889",
+      "created_at": "2024-01-26T23:09:23Z",
+      "updated_at": "2024-01-26T23:09:23Z"
+    },
+    "amount": 2000,
+    "redirect_url": "https://app.midtrans.com/snap/v3/redirection/87b8f86c-1bb2-4439-99c1-8d3952d50b70",
+    "currency": "",
+    "payment_type": "",
+    "transaction_status": "Waiting Payment",
+    "transaction_time": "2024-01-27T20:31:00.258907+07:00",
+    "settlement_time": "0001-01-01T00:00:00Z",
+    "expiry_time": "0001-01-01T00:00:00Z"
+  },
+  {
+    "id": "90f174d6-60a5-414f-8e47-59a474412160",
+    "customer": {
+      "id": "1c1a6ba1-1225-4385-a27a-a9ab577d61a1",
+      "name": "Yoelsefet Ignatius",
+      "username": "yoelsefet12",
+      "contact": "0899999999",
+      "created_at": "2024-01-26T23:09:23Z",
+      "updated_at": "2024-01-26T23:09:23Z"
+    },
+    "amount": 1,
+    "redirect_url": "https://app.midtrans.com/snap/v3/redirection/16b9211b-a056-4c8b-8149-2d9ef9ec8a28",
+    "currency": "",
+    "payment_type": "",
+    "transaction_status": "Waiting Payment",
+    "transaction_time": "2024-01-27T20:31:50.347094+07:00",
+    "settlement_time": "0001-01-01T00:00:00Z",
+    "expiry_time": "0001-01-01T00:00:00Z"
+  }
 ]

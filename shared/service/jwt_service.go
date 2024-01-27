@@ -28,7 +28,6 @@ func (j *jwtService) CreateToken(user entity.Customer) (dto.AuthResponseDto, err
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
 		},
 		CustomerID: user.ID,
-		Contact:    user.Contact,
 	}
 
 	token := jwt.NewWithClaims(j.cfg.JwtSigningMethod, claims)

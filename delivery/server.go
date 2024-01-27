@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go-merchant/config"
 	"go-merchant/delivery/controller"
+	"go-merchant/delivery/middleware"
 	"go-merchant/repository"
 	"go-merchant/shared/service"
 	"go-merchant/usecase"
@@ -24,9 +25,12 @@ func (s *Server) initRoute() {
 	// ambilapi group dari file app config
 	rg := s.engine.Group(config.ApiGroup)
 
+	// hubungkan service.jwtService dengan authMiddleware
+	authMiddleware := middleware.NewAuthMiddleware(s.jwtService)
+
 	// routes from controller
-	controller.NewAuthController(s.authUC, rg).Route()
-	controller.NewPaymentController(s.paymentUC, rg).Route()
+	controller.NewAuthController(s.authUC, rg, authMiddleware).Route()
+	controller.NewPaymentController(s.paymentUC, rg, authMiddleware).Route()
 }
 
 func (s *Server) Run() {
