@@ -3,20 +3,20 @@
 		"id": "7d124b50-b5de-4520-bba0-127129415bad",
 		"name": "Arrico Handyanto",
 		"username": "arricohandyanto",
-		"password": "password",
+		"password": "$2a$14$Vius9MM.EYL0XIghotJecuHZ3QyvqFdujYWZbanB07d0vqlgN9a5q",
 		"contact": "088888889",
 		"is_logged_in": false,
-		"created_at": "2024-01-26T23:09:23",
-		"updated_at": "2024-01-26T23:09:23"
+		"created_at": "2024-01-26T23:09:23.095469+07:00",
+		"updated_at": "2024-01-26T23:09:23.095469+07:00"
 	},
 	{
 		"id": "1c1a6ba1-1225-4385-a27a-a9ab577d61a1",
 		"name": "Yoelsefet Ignatius",
 		"username": "yoelsefet12",
-		"password": "password",
+		"password": "$2a$14$CSFT/y06Fy/M3a/LuemL6eEycugG1BqrG9hr.x41un5oIAuUjG.pa",
 		"contact": "0899999999",
 		"is_logged_in": false,
-		"created_at": "2024-01-26T23:09:23",
-		"updated_at": "2024-01-26T23:09:23"
+		"created_at": "2024-01-26T23:09:23.095469+07:00",
+		"updated_at": "2024-01-26T23:09:23.095469+07:00"
 	}
 ]
