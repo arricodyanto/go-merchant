@@ -1,0 +1,18 @@
+[
+  {
+    "id": "062fe20f-efb7-4e9e-b4e0-701678b3c392",
+    "customer_id": "7d124b50-b5de-4520-bba0-127129415bad",
+    "amount": 1,
+    "token": "0c69108e-7a72-48b8-898b-db625347957a",
+    "redirect_url": "https://app.midtrans.com/snap/v3/redirection/0c69108e-7a72-48b8-898b-db625347957a",
+    "transaction_time": "2024-01-27T19:44:34.172169+07:00"
+  },
+  {
+    "id": "17941fef-8e5a-4ea0-a174-28605d312363",
+    "customer_id": "7d124b50-b5de-4520-bba0-127129415bad",
+    "amount": 1,
+    "token": "29685cd9-b8b1-47e4-873b-8f2f0d0d3f49",
+    "redirect_url": "https://app.midtrans.com/snap/v3/redirection/29685cd9-b8b1-47e4-873b-8f2f0d0d3f49",
+    "transaction_time": "2024-01-27T19:44:55.57471+07:00"
+  }
+]

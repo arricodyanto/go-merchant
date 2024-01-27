@@ -13,6 +13,7 @@ import (
 
 type Server struct {
 	customerUC usecase.CustomerUsecase
+	paymentUC  usecase.PaymentUsecase
 	authUC     usecase.AuthUsecase
 	jwtService service.JwtService
 	engine     *gin.Engine
@@ -25,6 +26,7 @@ func (s *Server) initRoute() {
 
 	// routes from controller
 	controller.NewAuthController(s.authUC, rg).Route()
+	controller.NewPaymentController(s.paymentUC, rg).Route()
 }
 
 func (s *Server) Run() {
@@ -42,9 +44,11 @@ func NewServer() *Server {
 
 	// define repository
 	customerRepo := repository.NewCustomerRepository()
+	paymentRepo := repository.NewPaymentRepository()
 
 	// define usecase
 	customerUC := usecase.NewCustomerUsecase(customerRepo)
+	paymentUC := usecase.NewPaymentUsecase(paymentRepo)
 	jwtService := service.NewJwtService(config.TokenConfig)
 	authUC := usecase.NewAuthUsecase(customerUC, jwtService)
 
@@ -54,6 +58,7 @@ func NewServer() *Server {
 
 	return &Server{
 		customerUC: customerUC,
+		paymentUC:  paymentUC,
 		jwtService: jwtService,
 		authUC:     authUC,
 		engine:     engine,
