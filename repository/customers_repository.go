@@ -37,7 +37,8 @@ func (*customerRepository) GetByUsernamePassword(username, password string, isLo
 
 	// cek data yang memiliki credential username password yang cocok
 	for i, v := range customers {
-		if v.Username == username && v.Password == password {
+		comparePassword := common.ComparePassword(password, v.Password)
+		if v.Username == username && comparePassword {
 			// ubah field is_logged_in menjadi true
 			customers[i].IsLoggedIn = isLoggedIn
 			customer = customers[i]
