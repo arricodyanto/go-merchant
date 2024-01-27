@@ -45,6 +45,10 @@ func (c *Config) ConfigConfiguration() error {
 		JwtExpiresTime:   time.Duration(tokenExpire) * time.Minute,
 	}
 
+	if c.ApiPort == "" || c.IssuerName == "" || c.JwtExpiresTime < 0 || len(c.JwtSignatureKy) == 0 {
+		return fmt.Errorf("missing required environment")
+	}
+
 	return nil
 }
 
