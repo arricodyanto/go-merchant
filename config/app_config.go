@@ -5,5 +5,6 @@ const (
 	ApiGroup = "/api/v1"
 
 	// Auth
-	AuthLogin = "/auth/login"
+	AuthLogin  = "/auth/login"
+	AuthLogout = "/auth/logout"
 )

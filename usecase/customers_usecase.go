@@ -6,7 +6,7 @@ import (
 )
 
 type CustomerUsecase interface {
-	FindCustomerForLogin(username, password string) (entity.Customer, error)
+	FindCustomerForLogin(username, password string, isLoggedIn bool) (entity.Customer, error)
 }
 
 // hubungkan ke repository
@@ -15,8 +15,8 @@ type customerUsecase struct {
 }
 
 // FindCustomerForLogin implements CustomerUsecase.
-func (c *customerUsecase) FindCustomerForLogin(username, password string) (entity.Customer, error) {
-	return c.repo.GetByUsernamePassword(username, password)
+func (c *customerUsecase) FindCustomerForLogin(username, password string, isLoggedIn bool) (entity.Customer, error) {
+	return c.repo.GetByUsernamePassword(username, password, isLoggedIn)
 }
 
 // buat bridge

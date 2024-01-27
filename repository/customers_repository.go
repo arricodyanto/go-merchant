@@ -9,14 +9,14 @@ import (
 )
 
 type CustomerRepository interface {
-	GetByUsernamePassword(username, password string) (entity.Customer, error)
+	GetByUsernamePassword(username, password string, isLoggedIn bool) (entity.Customer, error)
 }
 
 type customerRepository struct {
 }
 
 // GetByUsernamePassword implements CustomerRepository.
-func (*customerRepository) GetByUsernamePassword(username, password string) (entity.Customer, error) {
+func (*customerRepository) GetByUsernamePassword(username, password string, isLoggedIn bool) (entity.Customer, error) {
 	// buat variable berdasarkan model yang didefined
 	var customers []entity.Customer
 	var customer entity.Customer
@@ -40,7 +40,7 @@ func (*customerRepository) GetByUsernamePassword(username, password string) (ent
 	for i, v := range customers {
 		if v.Username == username && v.Password == password {
 			// ubah field is_logged_in menjadi true
-			customers[i].IsLoggedIn = true
+			customers[i].IsLoggedIn = isLoggedIn
 			customer = customers[i]
 
 			// ubah ke format json dengan marshal

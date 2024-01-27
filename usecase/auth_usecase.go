@@ -7,6 +7,7 @@ import (
 
 type AuthUsecase interface {
 	Login(payload dto.AuthRequestDto) (dto.AuthResponseDto, error)
+	Logout(payload dto.AuthRequestDto) (dto.AuthResponseDto, error)
 }
 
 type authUsecase struct {
@@ -16,7 +17,7 @@ type authUsecase struct {
 
 // Login implements AuthUsecase.
 func (a *authUsecase) Login(payload dto.AuthRequestDto) (dto.AuthResponseDto, error) {
-	customer, err := a.customerUC.FindCustomerForLogin(payload.Username, payload.Password)
+	customer, err := a.customerUC.FindCustomerForLogin(payload.Username, payload.Password, true)
 	if err != nil {
 		return dto.AuthResponseDto{}, err
 	}
@@ -26,6 +27,16 @@ func (a *authUsecase) Login(payload dto.AuthRequestDto) (dto.AuthResponseDto, er
 	}
 
 	return token, nil
+}
+
+// Logout implements AuthUsecase.
+func (a *authUsecase) Logout(payload dto.AuthRequestDto) (dto.AuthResponseDto, error) {
+	_, err := a.customerUC.FindCustomerForLogin(payload.Username, payload.Password, false)
+	if err != nil {
+		return dto.AuthResponseDto{}, err
+	}
+
+	return dto.AuthResponseDto{}, nil
 }
 
 func NewAuthUsecase(customerUC CustomerUsecase, jwtService service.JwtService) AuthUsecase {
