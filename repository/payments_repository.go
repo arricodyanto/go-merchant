@@ -7,6 +7,7 @@ import (
 	"go-merchant/config"
 	"go-merchant/entity"
 	"go-merchant/entity/dto"
+	"go-merchant/shared/common"
 	"io"
 	"net/http"
 	"os"
@@ -29,13 +30,10 @@ func (*paymentRepository) Create(payload entity.Payment) (entity.Payment, error)
 	// baca file dari file customers.json untuk dicocokan dengan payload.customer_id
 	var customers []entity.Customer
 
-	path := "repository/json/"
-	customerFileName := "customers.json"
-	file, err := os.ReadFile(filepath.Join(path, customerFileName))
+	err := common.ReadJsonFile("customers.json", &customers)
 	if err != nil {
-		return entity.Payment{}, fmt.Errorf("failed to read file: %v", err.Error())
+		return entity.Payment{}, err
 	}
-	json.Unmarshal(file, &customers)
 
 	// cari customer dengan payload.customer_id yang cocok
 	var matchedCustomer entity.Customer
@@ -115,19 +113,16 @@ func (*paymentRepository) Create(payload entity.Payment) (entity.Payment, error)
 
 	// read isi data dari file histories.json
 	var histories []entity.History
-
 	fileName := "histories.json"
-	file, err = os.ReadFile(filepath.Join(path, fileName))
+	err = common.ReadJsonFile(fileName, &histories)
 	if err != nil {
-		fmt.Printf("failed to read file: %v", err.Error())
+		fmt.Println(err.Error())
 		// buat file jika belum ada
-		file, err := os.Create(filepath.Join(path, fileName))
+		err := common.CreateJsonFile(fileName)
 		if err != nil {
-			return entity.Payment{}, fmt.Errorf("failed to create customers file: %v", err.Error())
+			return entity.Payment{}, err
 		}
-		defer file.Close()
 	}
-	json.Unmarshal(file, &histories)
 
 	// buat object baru untuk disimpan ke dalam file histories.json
 	historiesJson := entity.History{
@@ -153,6 +148,7 @@ func (*paymentRepository) Create(payload entity.Payment) (entity.Payment, error)
 	}
 
 	// save data ke file history.json
+	path := "repository/json/"
 	err = os.WriteFile(filepath.Join(path, fileName), createdData, 0644)
 	if err != nil {
 		return entity.Payment{}, fmt.Errorf("failed to save createdData to json: %v", err.Error())
