@@ -35,6 +35,7 @@ func (s *Server) initRoute() {
 
 func (s *Server) Run() {
 	// jalankan routes yang ada dari initRoute()
+	gin.SetMode(gin.ReleaseMode)
 	s.initRoute()
 	if err := s.engine.Run(s.host); err != nil {
 		panic(fmt.Errorf("server could not run at port (%s) because of error: %v", s.host, err.Error()))
