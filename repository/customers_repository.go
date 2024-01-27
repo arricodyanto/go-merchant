@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"go-merchant/entity"
+	"go-merchant/shared/common"
 	"os"
 	"path/filepath"
 )
@@ -24,17 +25,15 @@ func (*customerRepository) GetByUsernamePassword(username, password string, isLo
 	// baca data customer dari file json
 	path := "repository/json/"
 	fileName := "customers.json"
-	file, err := os.ReadFile(filepath.Join(path, fileName))
+	err := common.ReadJsonFile(fileName, &customers)
 	if err != nil {
 		fmt.Printf("failed to read file: %v", err.Error())
 		// buat file jika belum ada
-		file, err := os.Create(filepath.Join(path, fileName))
+		err = common.CreateJsonFile(fileName)
 		if err != nil {
-			return entity.Customer{}, fmt.Errorf("failed to create customers file: %v", err.Error())
+			return entity.Customer{}, err
 		}
-		defer file.Close()
 	}
-	json.Unmarshal(file, &customers)
 
 	// cek data yang memiliki credential username password yang cocok
 	for i, v := range customers {
