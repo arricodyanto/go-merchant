@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"go-merchant/delivery"
+)
 
 func main() {
-	fmt.Println("First, init project")
+	// run server dari file server.go
+	delivery.NewServer().Run()
 }
