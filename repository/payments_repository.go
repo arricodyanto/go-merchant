@@ -26,6 +26,35 @@ type paymentRepository struct {
 
 // Create implements PaymentRepository.
 func (*paymentRepository) Create(payload entity.Payment) (entity.Payment, error) {
+	// baca file dari file customers.json untuk dicocokan dengan payload.customer_id
+	var customers []entity.Customer
+
+	path := "repository/json/"
+	customerFileName := "customers.json"
+	file, err := os.ReadFile(filepath.Join(path, customerFileName))
+	if err != nil {
+		return entity.Payment{}, fmt.Errorf("failed to read file: %v", err.Error())
+	}
+	json.Unmarshal(file, &customers)
+
+	// cari customer dengan payload.customer_id yang cocok
+	var matchedCustomer entity.Customer
+	for _, v := range customers {
+		// ubah valuenya ke null agar tidak masuk ke histories.json
+		v.IsLoggedIn = false
+		v.Password = ""
+
+		// cek id
+		if v.ID == payload.CustomerID {
+			matchedCustomer = v
+			break
+		}
+	}
+
+	if matchedCustomer.ID == "" {
+		return entity.Payment{}, fmt.Errorf("customer not found with ID: %s", payload.CustomerID)
+	}
+
 	var payment entity.Payment
 
 	// generate uuid for id payment
@@ -85,11 +114,10 @@ func (*paymentRepository) Create(payload entity.Payment) (entity.Payment, error)
 	payment.TransactionTime = time.Now()
 
 	// read isi data dari file histories.json
-	var histories []entity.Payment
+	var histories []entity.History
 
-	path := "repository/json/"
 	fileName := "histories.json"
-	file, err := os.ReadFile(filepath.Join(path, fileName))
+	file, err = os.ReadFile(filepath.Join(path, fileName))
 	if err != nil {
 		fmt.Printf("failed to read file: %v", err.Error())
 		// buat file jika belum ada
@@ -101,8 +129,22 @@ func (*paymentRepository) Create(payload entity.Payment) (entity.Payment, error)
 	}
 	json.Unmarshal(file, &histories)
 
+	// buat object baru untuk disimpan ke dalam file histories.json
+	historiesJson := entity.History{
+		ID:                paymentID,
+		Customer:          matchedCustomer,
+		Amount:            payment.Amount,
+		RedirectURL:       payment.RedirectURL,
+		Currency:          "",
+		PaymentType:       "",
+		TransactionStatus: "Waiting Payment",
+		TransactionTime:   payment.TransactionTime,
+		SettlementTime:    time.Time{},
+		ExpiryTime:        time.Time{},
+	}
+
 	// append createdData ke histories varible
-	histories = append(histories, payment)
+	histories = append(histories, historiesJson)
 
 	// ubah ke format json dengan marshal untuk disimpan ke history.json
 	createdData, err := json.MarshalIndent(histories, "", "  ")

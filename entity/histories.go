@@ -1,11 +1,14 @@
 package entity
 
-import "time"
+import (
+	"time"
+)
 
 type History struct {
 	ID                string    `json:"id"`
-	CustomerID        string    `json:"customer_id"`
+	Customer          Customer  `json:"customer"`
 	Amount            int       `json:"amount"`
+	RedirectURL       string    `json:"redirect_url"`
 	Currency          string    `json:"currency"`
 	PaymentType       string    `json:"payment_type"`
 	TransactionStatus string    `json:"transaction_status"`
