@@ -28,7 +28,7 @@ type Config struct {
 
 func (c *Config) ConfigConfiguration() error {
 	// Cek apakah file env ada
-	err := godotenv.Load()
+	err := godotenv.Load(".env")
 	if err != nil {
 		return fmt.Errorf("missing env file %v", err.Error())
 	}
