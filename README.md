@@ -21,7 +21,25 @@ https://documenter.getpostman.com/view/17920856/2s9YyqiMvw
 
 - go
 
-## Dataset Preparation
+## Environtment
+
+```
+API_PORT=
+TOKEN_ISSUE=
+TOKEN_SECRET=
+TOKEN_EXPIRE=
+MIDTRANS_SERVER_KEY=Mid-server-uWyNx1Spojz4VTzxo2uCg0k9
+```
+
+API_PORT= TOKEN_ISSUE= TOKEN_SECRET= TOKEN_EXPIRE=
+MIDTRANS_SERVER_KEY=Mid-server-uWyNx1Spojz4VTzxo2uCg0k9
+
+- API_PORT is used to set the port on which the application will run
+- TOKEN_ISSUE, token issuer. example: go_merchant
+- TOKEN_SECRET, token secret. example: thisissecret!!!
+- TOKEN_EXPIRE, token expire (in minutes). example: 60 (to set to 60 minutes)
+- MIDTRANS_SERVER_KEY, if you have a Midtrans account you can set it in this variable. Or you can
+  leave it as it is in .env.example to use my midtrans server key.
 
 ## Use
 
