@@ -2,6 +2,7 @@ package controller
 
 import (
 	"go-merchant/config"
+	"go-merchant/delivery/middleware"
 	"go-merchant/entity"
 	"go-merchant/shared/common"
 	"go-merchant/usecase"
@@ -11,8 +12,9 @@ import (
 )
 
 type PaymentController struct {
-	paymentUC usecase.PaymentUsecase
-	rg        *gin.RouterGroup
+	paymentUC      usecase.PaymentUsecase
+	rg             *gin.RouterGroup
+	authMiddleware middleware.AuthMiddleware
 }
 
 func (p *PaymentController) createHandler(c *gin.Context) {
@@ -35,9 +37,9 @@ func (p *PaymentController) createHandler(c *gin.Context) {
 }
 
 func (p *PaymentController) Route() {
-	p.rg.POST(config.PaymentCreate, p.createHandler)
+	p.rg.POST(config.PaymentCreate, p.authMiddleware.RequireToken(), p.createHandler)
 }
 
-func NewPaymentController(paymentUC usecase.PaymentUsecase, rg *gin.RouterGroup) *PaymentController {
-	return &PaymentController{paymentUC: paymentUC, rg: rg}
+func NewPaymentController(paymentUC usecase.PaymentUsecase, rg *gin.RouterGroup, authMiddleware middleware.AuthMiddleware) *PaymentController {
+	return &PaymentController{paymentUC: paymentUC, rg: rg, authMiddleware: authMiddleware}
 }
